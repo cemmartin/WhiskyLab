@@ -1,6 +1,7 @@
 package com.codeclan.example.WhiskyTracker.controllers;
 
 import com.codeclan.example.WhiskyTracker.models.Distillery;
+import com.codeclan.example.WhiskyTracker.models.Whisky;
 import com.codeclan.example.WhiskyTracker.repositories.DistilleryRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class DistilleryController {
     @GetMapping(value = "/distilleries/{id}")
     public ResponseEntity<Optional<Distillery>> getIndividualDistillery(@PathVariable Long id){
         return new ResponseEntity<>(distilleryRepository.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/distilleries_in_{region}")
+    public ResponseEntity<List<Distillery>> getDistilleriesFromGivenRegion(@PathVariable String region) {
+        return new ResponseEntity<>(distilleryRepository.findDistilleriesByRegionEquals(region), HttpStatus.OK);
     }
 
 
